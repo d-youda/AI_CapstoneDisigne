@@ -149,7 +149,9 @@ tf = transforms.Compose([
     transforms.ToTensor(), 
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ])
-test_dataset = datasets.ImageFolder(root='test_imgs', transform=tf)
+
+#데이터셋 입력
+test_dataset = datasets.ImageFolder(root='C:/Users/ICT/Desktop/youda/AI/finalSpectrampng', transform=tf)
 test_dataloader = data.DataLoader(test_dataset, batch_size=batch_size)
 
 

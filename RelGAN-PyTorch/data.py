@@ -11,8 +11,7 @@ import skimage.io as io
 import torch
 import torchvision.transforms as transforms
 from os.path import join
-import os
-os.environ['KMP_DUPLICATE_LIB_OK']='TRUE' # OMP Error 해결위한 코드-> 중복 허용하기
+
 
 class CelebA(object):
     def __init__(self, path, image_size, selected_attrs=None, 
