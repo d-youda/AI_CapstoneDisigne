@@ -11,7 +11,8 @@ import skimage.io as io
 import torch
 import torchvision.transforms as transforms
 from os.path import join
-
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='TRUE' # OMP Error 해결위한 코드-> 중복 허용하기
 
 class CelebA(object):
     def __init__(self, path, image_size, selected_attrs=None, 
@@ -150,8 +151,9 @@ class PairedData(object):
         imgs = torch.stack(imgs)
         atts = torch.stack(atts)
         if gpu:
-            imgs = imgs.cuda(async=multi_gpu)
-            atts = atts.cuda(async=multi_gpu)
+            #async->non_blocking : python 3.7부터 생기는 오류라고 함
+            imgs = imgs.cuda(non_blocking=multi_gpu)
+            atts = atts.cuda(non_blockingc=multi_gpu)
         return imgs, atts
     def __len__(self):
         return len(self.dataset)

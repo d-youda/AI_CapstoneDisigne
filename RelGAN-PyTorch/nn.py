@@ -209,7 +209,8 @@ class GAN(nn.Module):
         
         # Inline gradient penalty
         alpha = torch.rand(img_a.size(0), 1, 1, 1)
-        alpha = alpha.cuda(async=self.multi_gpu) if self.gpu else alpha
+        #async->non_blocking : python 3.7부터 생기는 오류라고 함
+        alpha = alpha.cuda(non_blocking=self.multi_gpu) if self.gpu else alpha
         mix_tar = (alpha * img_a + (1 - alpha) * img_a2b).requires_grad_(True)  # interpolates
         mix_outputs, _ = self.D(img_a, mix_tar, z_ab)
         gradients = autograd.grad(

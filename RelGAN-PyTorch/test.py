@@ -24,6 +24,8 @@ from helpers import run_from_ipython
 from nn import GAN
 from ops import inv_normalize
 
+# OMP Error 해결위한 코드-> 중복 허용하기
+os.environ['KMP_DUPLICATE_LIB_OK']='TRUE'
 
 def parse(args=None):
     parser = argparse.ArgumentParser()
@@ -112,7 +114,8 @@ selected_attrs = [
     'Pale_Skin', 'Smiling', 'Straight_Hair', 'Wavy_Hair', 'Wearing_Hat', 'Young'
 ]
 delete_attrs = []
-args.selected_attributes = yaml.load(open(args.attr, 'r', encoding='utf-8'))
+#yaml.load -> yaml.full_load로 변경 : yaml의 버전 차이임
+args.selected_attributes = yaml.full_load(open(args.attr, 'r', encoding='utf-8'))
 selected_attributes = args.selected_attributes
 assert type(selected_attributes) is list
 
